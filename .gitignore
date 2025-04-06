@@ -1,0 +1,27 @@
+# Arquivos do Django
+*.pyc
+__pycache__/
+*.sqlite3
+*.pyo
+*.pyd
+
+# Ambiente virtual
+venv/
+.env/
+.venv/
+
+# Arquivos sensíveis
+.env
+*.env
+secrets.py
+
+# Arquivos de IDE
+.idea/
+.vscode/
+*.swp
+
+# Arquivos estáticos coletados
+staticfiles/
+
+# Banco de dados postgres
+*.db
