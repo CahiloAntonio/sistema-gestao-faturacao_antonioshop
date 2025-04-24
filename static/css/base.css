@@ -1,0 +1,109 @@
+
+/* Estilos personalizados para o navbar futurista */
+ .navbar-futurista {
+     background: linear-gradient(135deg, #1a2a6c, #3a7bd5, #00d2ff);
+     box-shadow: 0 4px 20px rgba(0, 210, 255, 0.3);
+     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+ }
+ 
+ .navbar-brand-futurista {
+     font-family: 'Arial', sans-serif;
+     font-weight: 700;
+     font-size: 1.8rem;
+     background: linear-gradient(to right, #ffffff, #c9d6ff);
+     -webkit-background-clip: text;
+     background-clip: text;
+     color: transparent;
+     text-shadow: 0 0 10px rgba(201, 214, 255, 0.3);
+     letter-spacing: 1px;
+ }
+ 
+ .nav-link-futurista {
+     color: rgba(255, 255, 255, 0.9) !important;
+     font-weight: 500;
+     margin: 0 8px;
+     padding: 8px 15px !important;
+     border-radius: 20px;
+     transition: all 0.3s ease;
+     position: relative;
+ }
+ 
+ .nav-link-futurista:hover {
+     color: white !important;
+     background: rgba(255, 255, 255, 0.15);
+     transform: translateY(-2px);
+ }
+ 
+ .nav-link-futurista::before {
+     content: '';
+     position: absolute;
+     bottom: 0;
+     left: 50%;
+     transform: translateX(-50%);
+     width: 0;
+     height: 2px;
+     background: white;
+     transition: width 0.3s ease;
+ }
+ 
+ .nav-link-futurista:hover::before {
+     width: 60%;
+ }
+ 
+ .navbar-toggler-futurista {
+     border: 1px solid rgba(255, 255, 255, 0.3);
+     color: white;
+ }
+ 
+ .active-link {
+     background: rgba(255, 255, 255, 0.2);
+     font-weight: 600;
+ }
+
+ .footer-futurista {
+     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+     color: rgba(255, 255, 255, 0.8);
+     padding: 2rem 0;
+     margin-top: 3rem;
+     border-top: 1px solid rgba(0, 210, 255, 0.2);
+ }
+ 
+ .footer-container {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     text-align: center;
+ }
+ 
+ .developer-badge {
+     background: rgba(0, 0, 0, 0.2);
+     border-radius: 50px;
+     padding: 10px 20px;
+     margin-top: 15px;
+     display: inline-flex;
+     align-items: center;
+     border: 1px solid rgba(0, 210, 255, 0.3);
+     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .developer-badge i {
+     margin-right: 10px;
+     color: #00d2ff;
+ }
+ 
+ .copyright {
+     font-size: 0.9rem;
+     margin-bottom: 10px;
+ }
+ 
+ .contact-link {
+     color: #00d2ff;
+     text-decoration: none;
+     transition: all 0.3s ease;
+ }
+ 
+ .contact-link:hover {
+     color: white;
+     text-decoration: underline;
+ }
+ 

@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+PHONENUMBER_DEFAULT_REGION = "AO"  # Define Angola como padrão
+PHONENUMBER_DEFAULT_FORMAT = "INTERNATIONAL"  # Formato +244 XXX XXX XXX
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     "vendas",
+    "phonenumber_field",
+    
 ]
 
 MIDDLEWARE = [

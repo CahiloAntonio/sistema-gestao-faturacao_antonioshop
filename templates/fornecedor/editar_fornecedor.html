@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block title %}Editar Fornecedor{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+<style>
+    .iti {
+        width: 100%;
+    }
+    .error-message {
+        color: #dc3545;
+        font-size: 0.875em;
+        margin-top: 0.25rem;
+    }
+    .hide {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Editar Fornecedor</h1>
+    <form method="post" class="row g-3" id="fornecedorForm">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" id="nome" name="nome" class="form-control" value="{{ fornecedor.nome }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="contacto" class="form-label">Contacto</label>
+            <input type="tel" id="contacto" name="contacto" class="form-control" value="{{ fornecedor.contacto }}" required>
+            <div id="contacto-error" class="error-message hide"></div>
+            <small class="text-muted">Exemplo: +244 123 456 789</small>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary" id="submitBtn">Salvar</button>
+            <a href="{% url 'lista_fornecedores' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} mt-3">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </form>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const phoneInput = document.querySelector("#contacto");
+        const errorMsg = document.querySelector("#contacto-error");
+        const form = document.querySelector("#fornecedorForm");
+        const submitBtn = document.querySelector("#submitBtn");
+        
+        const iti = window.intlTelInput(phoneInput, {
+            initialCountry: "auto",
+            preferredCountries: ["ao", "pt", "mz", "br"],
+            separateDialCode: true,
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            nationalMode: false,
+            autoPlaceholder: "aggressive",
+            customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+                return "Ex: " + selectedCountryPlaceholder;
+            }
+        });
+
+        // Se já tiver um valor, detecta o país automaticamente
+        if (phoneInput.value) {
+            iti.setNumber(phoneInput.value);
+        }
+
+        // Validação em tempo real
+        phoneInput.addEventListener('input', function() {
+            validatePhoneNumber();
+        });
+
+        // Validação ao mudar país
+        phoneInput.addEventListener('countrychange', function() {
+            validatePhoneNumber();
+        });
+
+        // Validação no submit
+        form.addEventListener('submit', function(e) {
+            if (!validatePhoneNumber()) {
+                e.preventDefault();
+            }
+        });
+
+        function validatePhoneNumber() {
+            if (phoneInput.value.trim()) {
+                if (iti.isValidNumber()) {
+                    errorMsg.classList.add('hide');
+                    submitBtn.disabled = false;
+                    return true;
+                } else {
+                    const errorCode = iti.getValidationError();
+                    let errorMessage = "Número inválido";
+                    
+                    switch(errorCode) {
+                        case 1: errorMessage = "Número muito curto para este país"; break;
+                        case 2: errorMessage = "Número muito longo para este país"; break;
+                        case 3: errorMessage = "Número inválido para este país"; break;
+                        case 4: errorMessage = "Número inválido"; break;
+                    }
+                    
+                    errorMsg.textContent = errorMessage;
+                    errorMsg.classList.remove('hide');
+                    submitBtn.disabled = true;
+                    return false;
+                }
+            } else {
+                errorMsg.classList.add('hide');
+                submitBtn.disabled = false;
+                return true;
+            }
+        }
+    });
+</script>
+{% endblock %}

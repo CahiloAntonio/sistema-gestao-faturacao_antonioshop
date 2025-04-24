@@ -1,4 +1,5 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.add()
 
@@ -21,8 +22,8 @@ class Vendedor(models.Model):
 
 class Fornecedor(models.Model):
     nome = models.CharField(max_length=100)
-    contacto = models.CharField(max_length=100, blank=True, null=True)
-
+    contacto = PhoneNumberField(region='AO', blank=True, null=True)  # Define Angola como padrão
+    
     def __str__(self):
         return self.nome
 
